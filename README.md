@@ -57,7 +57,7 @@ quarkus.myfaces.project-stage=Development
 
 3. Acesse a aplicação no navegador:  
    ```
-   http://localhost:8080/index.xhtml
+   http://localhost:8080/
    ```
 
 Se aparecer *Forbidden* ao acessar apenas `/`, use o caminho completo `/index.xhtml`.
