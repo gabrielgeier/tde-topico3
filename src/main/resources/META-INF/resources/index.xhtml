@@ -125,17 +125,16 @@
                         <h:inputText value="#{bibliotecaBean.livroIsbn}" />
                     </div>
                 </div>
-                <div class="row">
-                    <div style="flex:1">
-                        <label>Autor</label>
-                        <h:selectOneMenu value="#{bibliotecaBean.livroAutorId}">
-                            <f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-                            <ui:repeat value="#{bibliotecaBean.autores}" var="a">
-                                <f:selectItem itemValue="#{a.id}" itemLabel="#{a.nome}" />
-                            </ui:repeat>
-                        </h:selectOneMenu>
-                    </div>
-                </div>
+                <div class="row"><div style="flex:1">
+          <label>Autor</label>
+          <h:selectOneMenu value="#{bibliotecaBean.livroAutorId}">
+            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+            <f:selectItems value="#{bibliotecaBean.autores}"
+                           var="a"
+                           itemValue="#{a.id}"
+                           itemLabel="#{a.nome}"/>
+          </h:selectOneMenu>
+        </div></div>
                 <h:commandButton value="Salvar" action="#{bibliotecaBean.salvarLivro}" styleClass="btn" />
             </h:form>
         </div>
@@ -143,17 +142,16 @@
         <div class="card">
             <h3>Novo Empréstimo</h3>
             <h:form>
-                <div class="row">
-                    <div style="flex:1">
-                        <label>Livro</label>
-                        <h:selectOneMenu value="#{bibliotecaBean.empLivroId}">
-                            <f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
-                            <ui:repeat value="#{bibliotecaBean.livros}" var="l">
-                                <f:selectItem itemValue="#{l.id}" itemLabel="#{l.titulo}" />
-                            </ui:repeat>
-                        </h:selectOneMenu>
-                    </div>
-                </div>
+                <div class="row"><div style="flex:1">
+          <label>Livro</label>
+          <h:selectOneMenu value="#{bibliotecaBean.empLivroId}">
+            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+            <f:selectItems value="#{bibliotecaBean.livros}"
+                           var="l"
+                           itemValue="#{l.id}"
+                           itemLabel="#{l.titulo}"/>
+          </h:selectOneMenu>
+        </div></div>
                 <div class="row">
                     <div style="flex:1">
                         <label>Nome</label>
