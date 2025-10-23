@@ -14,7 +14,8 @@ Abra o arquivo `pom.xml` e adicione as dependências abaixo dentro de `<dependen
 <dependency>
     <groupId>org.primefaces</groupId>
     <artifactId>primefaces</artifactId>
-    <version>13.0.0</version>
+    <version>15.0.0</version>
+    <classifier>jakarta</classifier>
 </dependency>
 ```
 
