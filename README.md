@@ -55,7 +55,12 @@ quarkus.myfaces.project-stage=Development
    mvn compile quarkus:dev
    ```
 
-3. Acesse a aplicação no navegador:  
+3. Execute em modo desenvolvimento:  
+   ```bash
+   mvn clean install
+   ```
+
+4. Acesse a aplicação no navegador:  
    ```
    http://localhost:8080/
    ```
