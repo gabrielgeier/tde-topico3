@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Autores</ui:define>
+    <ui:define name="content">
+        <h1>Autores</h1>
+        <h:form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Quantidade de Livros</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{bibliotecaBean.autores}" var="a">
+                        <tr>
+                            <td>
+                                <h:outputText value="#{a.nome}" />
+                            </td>
+                            <td>
+                                <h:outputText value="#{a.email}" />
+                            </td>
+                            <td>
+                                <h:outputText value="#{a.quantidadeLivros}" />
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

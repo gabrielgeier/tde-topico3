@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>
+        <ui:insert name="title">Biblioteca Digital</ui:insert>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f7f7f7
+        }
+
+        .topo {
+            margin-bottom: 16px
+        }
+
+        .menu a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #105
+        }
+
+        .miolo {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 16px
+        }
+
+        .cards {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            margin: 10px 0 20px
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 12px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff
+        }
+
+        th,
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+            text-align: left
+        }
+
+        th {
+            background: #f3f3f3
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+            cursor: pointer
+        }
+
+        .rodape {
+            margin-top: 18px;
+            color: #666;
+            font-size: .9rem
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="topo">
+        <h1>📚 Sistema de Biblioteca Digital</h1>
+        <div class="menu">
+            <h:link value="Dashboard" outcome="/index.xhtml" />
+            <h:link value="Autores" outcome="/autores.xhtml" />
+            <h:link value="Livros" outcome="/livros.xhtml" />
+        </div>
+    </div>
+    <div class="miolo">
+        <ui:insert name="content" />
+    </div>
+    <div class="rodape">
+        © 2025 — Biblioteca
+    </div>
+</h:body>
+
+</html>
