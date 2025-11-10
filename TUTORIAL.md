@@ -84,7 +84,13 @@ Essa versão usa:
 
 ---
 
-## 🧠 3. Testando
+## 3. Imagens para Referência
+
+Para visualizar as funcionalidades implementadas, basta verificar as imagens presentes no diretório **Images** na raíz do projeto.
+
+---
+
+## 🧠 4. Testando
 
 Execute o projeto novamente:
 ```bash
