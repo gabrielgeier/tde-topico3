@@ -9,7 +9,6 @@
 
     <properties>
         <compiler-plugin.version>3.14.0</compiler-plugin.version>
-        <!-- Se seu JDK for 17, mude para 17 -->
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -33,38 +32,27 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- JSF / Faces em Quarkus -->
         <dependency>
             <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
             <artifactId>myfaces-quarkus</artifactId>
             <version>4.1.1</version>
         </dependency>
-
-        <!-- JPA / Hibernate ORM -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm</artifactId>
         </dependency>
-
-        <!-- Quarkus REST (novo nome do RESTEasy Reactive) -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest</artifactId>
         </dependency>
-
-        <!-- JDBC PostgreSQL -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
-
-        <!-- CDI -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
-
-        <!-- Testes -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -81,11 +69,14 @@
             <version>15.0.0</version>
             <classifier>jakarta</classifier>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-elytron-security-jdbc</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Plugin correto -->
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>

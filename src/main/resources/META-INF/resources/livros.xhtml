@@ -24,6 +24,11 @@
                     <h:outputText value="Disponível" rendered="#{l.disponivel}" styleClass="ok" />
                     <h:outputText value="Emprestado" rendered="#{!l.disponivel}" styleClass="bad" />
                 </p:column>
+                <p:column headerText="Ações" exportable="false" style="width:160px; text-align:center">
+                    <h:commandButton value="Emprestar" action="#{bibliotecaBean.emprestarLivro(l.id)}"
+                        rendered="#{l.disponivel and facesContext.externalContext.isUserInRole('USER')}"
+                        styleClass="btn" />
+                </p:column>
             </p:dataTable>
         </h:form>
     </ui:define>

@@ -8,6 +8,12 @@
 
         <h1>📚 Biblioteca</h1>
 
+        <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('USER')}">
+            <p style="margin-top:8px;margin-bottom:10px;font-size:.9rem;color:#555;">
+                Você está logado como leitor. Apenas administradores podem cadastrar autores e livros.
+            </p>
+        </h:panelGroup>
+
         <div class="toolbar">
             <h:form>
                 <h:commandButton value="Recarregar Dados" action="#{bibliotecaBean.recarregarDados}" styleClass="btn" />
@@ -42,53 +48,57 @@
         </div>
 
         <div class="grid">
-            <div class="card">
-                <h3>Novo Autor</h3>
-                <h:form>
-                    <div class="row">
-                        <div style="flex:1">
-                            <label>Nome</label>
-                            <h:inputText value="#{bibliotecaBean.autorNome}" />
+            <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}">
+                <div class="card">
+                    <h3>Novo Autor</h3>
+                    <h:form>
+                        <div class="row">
+                            <div style="flex:1">
+                                <label>Nome</label>
+                                <h:inputText value="#{bibliotecaBean.autorNome}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div style="flex:1">
-                            <label>Email</label>
-                            <h:inputText value="#{bibliotecaBean.autorEmail}" />
+                        <div class="row">
+                            <div style="flex:1">
+                                <label>Email</label>
+                                <h:inputText value="#{bibliotecaBean.autorEmail}" />
+                            </div>
                         </div>
-                    </div>
-                    <h:commandButton value="Salvar" action="#{bibliotecaBean.salvarAutor}" styleClass="btn" />
-                </h:form>
-            </div>
+                        <h:commandButton value="Salvar" action="#{bibliotecaBean.salvarAutor}" styleClass="btn" />
+                    </h:form>
+                </div>
+            </ui:fragment>
 
-            <div class="card">
-                <h3>Novo Livro</h3>
-                <h:form>
-                    <div class="row">
-                        <div style="flex:1">
-                            <label>Título</label>
-                            <h:inputText value="#{bibliotecaBean.livroTitulo}" />
+            <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}">
+                <div class="card">
+                    <h3>Novo Livro</h3>
+                    <h:form>
+                        <div class="row">
+                            <div style="flex:1">
+                                <label>Título</label>
+                                <h:inputText value="#{bibliotecaBean.livroTitulo}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div style="flex:1">
-                            <label>ISBN</label>
-                            <h:inputText value="#{bibliotecaBean.livroIsbn}" />
+                        <div class="row">
+                            <div style="flex:1">
+                                <label>ISBN</label>
+                                <h:inputText value="#{bibliotecaBean.livroIsbn}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div style="flex:1">
-                            <label>Autor</label>
-                            <h:selectOneMenu value="#{bibliotecaBean.livroAutorId}">
-                                <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{bibliotecaBean.autores}" var="a" itemValue="#{a.id}"
-                                    itemLabel="#{a.nome}" />
-                            </h:selectOneMenu>
+                        <div class="row">
+                            <div style="flex:1">
+                                <label>Autor</label>
+                                <h:selectOneMenu value="#{bibliotecaBean.livroAutorId}">
+                                    <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{bibliotecaBean.autores}" var="a" itemValue="#{a.id}"
+                                        itemLabel="#{a.nome}" />
+                                </h:selectOneMenu>
+                            </div>
                         </div>
-                    </div>
-                    <h:commandButton value="Salvar" action="#{bibliotecaBean.salvarLivro}" styleClass="btn" />
-                </h:form>
-            </div>
+                        <h:commandButton value="Salvar" action="#{bibliotecaBean.salvarLivro}" styleClass="btn" />
+                    </h:form>
+                </div>
+            </ui:fragment>
 
             <div class="card">
                 <h3>Novo Empréstimo</h3>
@@ -119,7 +129,7 @@
                         <div style="flex:1">
                             <label>Devolução Prevista</label>
                             <p:datePicker value="#{bibliotecaBean.empPrevista}" pattern="dd/MM/yyyy" showIcon="true"
-                                inputStyle="width:100%">
+                                style="width:100%">
                                 <f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
                             </p:datePicker>
                         </div>
@@ -129,107 +139,121 @@
             </div>
         </div>
 
-        <h2>Livros</h2>
-        <h:form id="formLivros">
-            <p:dataTable id="tblLivros" value="#{bibliotecaBean.livros}" var="l" paginator="true" rows="5"
-                rowsPerPageTemplate="5,10,20" currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
-                paginatorPosition="bottom" responsiveLayout="scroll" sortMode="single" filterDelay="400">
+        <div class="section-block">
+            <h2>Livros</h2>
+            <h:form id="formLivros">
+                <p:dataTable id="tblLivros" value="#{bibliotecaBean.livros}" var="l" paginator="true" rows="5"
+                    rowsPerPageTemplate="5,10,20"
+                    currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}" paginatorPosition="bottom"
+                    responsiveLayout="scroll" sortMode="single" filterDelay="400">
 
-                <p:column headerText="Título" sortBy="#{l.titulo}" filterBy="#{l.titulo}" filterMatchMode="contains">
-                    <h:outputText value="#{l.titulo}" />
-                </p:column>
+                    <p:column headerText="Título" sortBy="#{l.titulo}" filterBy="#{l.titulo}"
+                        filterMatchMode="contains">
+                        <h:outputText value="#{l.titulo}" />
+                    </p:column>
 
-                <p:column headerText="Autor" sortBy="#{l.autor.nome}" filterBy="#{l.autor.nome}"
-                    filterMatchMode="contains">
-                    <h:outputText value="#{l.autor.nome}" />
-                </p:column>
+                    <p:column headerText="Autor" sortBy="#{l.autor.nome}" filterBy="#{l.autor.nome}"
+                        filterMatchMode="contains">
+                        <h:outputText value="#{l.autor.nome}" />
+                    </p:column>
 
-                <p:column headerText="ISBN" sortBy="#{l.isbn}" filterBy="#{l.isbn}" filterMatchMode="contains"
-                    style="width:160px">
-                    <h:outputText value="#{l.isbn}" />
-                </p:column>
+                    <p:column headerText="ISBN" sortBy="#{l.isbn}" filterBy="#{l.isbn}" filterMatchMode="contains"
+                        style="width:160px">
+                        <h:outputText value="#{l.isbn}" />
+                    </p:column>
 
-                <p:column headerText="Status" sortBy="#{l.disponivel}">
-                    <h:outputText value="Disponível" rendered="#{l.disponivel}" styleClass="ok" />
-                    <h:outputText value="Emprestado" rendered="#{!l.disponivel}" styleClass="bad" />
-                </p:column>
+                    <p:column headerText="Status" sortBy="#{l.disponivel}">
+                        <h:outputText value="Disponível" rendered="#{l.disponivel}" styleClass="ok" />
+                        <h:outputText value="Emprestado" rendered="#{!l.disponivel}" styleClass="bad" />
+                    </p:column>
 
-                <p:column headerText="Ações" exportable="false" style="width:160px; text-align:center">
-                    <h:commandButton value="Excluir" action="#{bibliotecaBean.excluirLivro(l.id)}" styleClass="btn" />
-                </p:column>
+                    <p:column headerText="Ações" exportable="false" style="width:160px; text-align:center">
+                        <h:commandButton value="Excluir" action="#{bibliotecaBean.excluirLivro(l.id)}" styleClass="btn"
+                            rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}" />
+                    </p:column>
 
-            </p:dataTable>
-        </h:form>
+                </p:dataTable>
+            </h:form>
+        </div>
 
-        <h2>Autores</h2>
-        <h:form>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Qtd</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ui:repeat value="#{bibliotecaBean.autores}" var="a">
-                        <tr>
-                            <td>
-                                <h:outputText value="#{a.nome}" />
-                            </td>
-                            <td>
-                                <h:outputText value="#{a.email}" />
-                            </td>
-                            <td>
-                                <h:outputText value="#{a.quantidadeLivros}" />
-                            </td>
-                            <td>
-                                <h:commandButton value="Excluir" action="#{bibliotecaBean.excluirAutor(a.id)}"
-                                    styleClass="btn" />
-                            </td>
-                        </tr>
-                    </ui:repeat>
-                </tbody>
-            </table>
-        </h:form>
+        <div class="section-block">
+            <h2>Autores</h2>
+            <h:form>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Qtd</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{bibliotecaBean.autores}" var="a">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="#{a.nome}" />
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{a.email}" />
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{a.quantidadeLivros}" />
+                                    </td>
+                                    <td>
+                                        <h:commandButton value="Excluir" action="#{bibliotecaBean.excluirAutor(a.id)}"
+                                            styleClass="btn"
+                                            rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}" />
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </h:form>
+        </div>
 
-        <h2>Empréstimos Ativos</h2>
-        <h:form>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Usuário</th>
-                        <th>Livro</th>
-                        <th>Data</th>
-                        <th>Prevista</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ui:repeat value="#{bibliotecaBean.emprestimosAtivos}" var="e">
-                        <tr>
-                            <td>
-                                <h:outputText value="#{e.nomeUsuario}" />
-                            </td>
-                            <td>
-                                <h:outputText value="#{e.livro.titulo}" />
-                            </td>
-                            <td>
-                                <h:outputText value="#{e.dataEmprestimo}" />
-                            </td>
-                            <td>
-                                <h:outputText value="#{e.dataDevolucaoPrevista}" />
-                            </td>
-                            <td>
-                                <h:commandButton value="Devolver" action="#{bibliotecaBean.devolver(e.id)}"
-                                    styleClass="btn" />
-                            </td>
-                        </tr>
-                    </ui:repeat>
-                </tbody>
-            </table>
-        </h:form>
+        <div class="section-block">
+            <h2>Empréstimos Ativos</h2>
+            <h:form>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Usuário</th>
+                                <th>Livro</th>
+                                <th>Data</th>
+                                <th>Prevista</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{bibliotecaBean.emprestimosAtivos}" var="e">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="#{e.nomeUsuario}" />
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{e.livro.titulo}" />
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{e.dataEmprestimo}" />
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{e.dataDevolucaoPrevista}" />
+                                    </td>
+                                    <td>
+                                        <h:commandButton value="Devolver" action="#{bibliotecaBean.devolver(e.id)}"
+                                            styleClass="btn" />
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </h:form>
+        </div>
 
     </ui:define>
 </ui:composition>

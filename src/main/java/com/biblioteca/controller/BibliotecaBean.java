@@ -1,5 +1,10 @@
 package com.biblioteca.controller;
 
+import io.quarkus.security.identity.SecurityIdentity;
+import io.quarkus.vertx.http.runtime.security.FormAuthenticationMechanism;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpServletRequest;
 import com.biblioteca.entity.Autor;
 import com.biblioteca.entity.Emprestimo;
 import com.biblioteca.entity.Livro;
@@ -19,6 +24,9 @@ public class BibliotecaBean implements Serializable {
 
     @Inject
     BibliotecaService service;
+
+    @Inject
+    SecurityIdentity securityIdentity;
 
     private List<Autor> autores;
     private List<Livro> livros;
@@ -84,6 +92,7 @@ public class BibliotecaBean implements Serializable {
         recarregarDados();
     }
 
+    @RolesAllowed("ADMIN")
     public void salvarLivro() {
         service.criarLivro(livroTitulo, livroIsbn, livroAutorId);
         livroTitulo = null;
@@ -108,6 +117,7 @@ public class BibliotecaBean implements Serializable {
         recarregarDados();
     }
 
+    @RolesAllowed("ADMIN")
     public void excluirLivro(Long livroId) {
         service.excluirLivro(livroId);
         recarregarDados();
@@ -216,5 +226,32 @@ public class BibliotecaBean implements Serializable {
 
     public void setEmpPrevista(LocalDate empPrevista) {
         this.empPrevista = empPrevista;
+    }
+
+    public String logout() {
+        if (securityIdentity != null && !securityIdentity.isAnonymous()) {
+            FormAuthenticationMechanism.logout(securityIdentity);
+        }
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        facesContext.getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
+    }
+
+    public void emprestarLivro(Long livroId) {
+        if (securityIdentity == null || securityIdentity.isAnonymous()) {
+            return;
+        }
+        if (empPrevista == null) {
+            empPrevista = LocalDate.now().plusDays(14);
+        }
+        String nome = securityIdentity.getPrincipal().getName();
+        String email = securityIdentity.getPrincipal().getName();
+        service.criarEmprestimo(livroId, nome, email, empPrevista);
+        empLivroId = null;
+        empNome = null;
+        empEmail = null;
+        empPrevista = null;
+        recarregarDados();
     }
 }

@@ -10,81 +10,301 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background: #f7f7f7
+            background: #f7f7f7;
         }
 
         .topo {
-            margin-bottom: 16px
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
+            margin-bottom: 18px;
         }
 
-        .menu a {
-            margin-right: 10px;
+        .topo-esquerda h1 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .usuario-info {
+            margin-top: 4px;
+            font-size: .9rem;
+            color: #555;
+        }
+
+        .usuario-info strong {
+            margin-left: 4px;
+        }
+
+        .topo-direita {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: .95rem;
+        }
+
+        .menu a,
+        .menu a:visited {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: #f0f2ff;
+            border: 1px solid #d0d7ff;
+            color: #123c6b;
             text-decoration: none;
-            color: #105
+            font-size: .9rem;
+            font-weight: 500;
+            transition: background .15s ease, border-color .15s ease, transform .05s ease;
+        }
+
+        .menu a:hover {
+            background: #3f51b5;
+            border-color: #3f51b5;
+            color: #ffffff;
+            transform: translateY(-1px);
         }
 
         .miolo {
-            background: #fff;
-            border: 1px solid #eee;
+            background: #ffffff;
+            border: 1px solid #eeeeee;
             border-radius: 8px;
-            padding: 16px
+            padding: 16px;
         }
 
-        .cards {
+        .stats {
             display: grid;
-            gap: 12px;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            margin: 10px 0 20px
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .stat,
+        .card,
+        .section-block {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+            border: 1px solid #eeeeee;
+        }
+
+        .stat {
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat::before {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #3f51b5, #42a5f5);
+            margin-bottom: 6px;
+        }
+
+        .stat h4 {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #555555;
+            font-weight: 600;
+        }
+
+        .stat strong {
+            font-size: 1.6rem;
+            color: #123c6b;
+        }
+
+        .toolbar {
+            margin: 10px 0 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin: 20px 0 30px;
         }
 
         .card {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 12px
+            padding: 16px 18px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: #123c6b;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            gap: 4px;
+        }
+
+        .row label {
+            font-size: .9rem;
+            color: #555555;
+        }
+
+        .row input[type="text"],
+        .row input[type="email"],
+        .row input[type="password"],
+        .row select {
+            width: 100%;
+            padding: 7px 9px;
+            border-radius: 6px;
+            border: 1px solid #d0d0d0;
+            font-size: .9rem;
+            box-sizing: border-box;
+        }
+
+        .row input[type="text"]:focus,
+        .row input[type="email"]:focus,
+        .row input[type="password"]:focus,
+        .row select:focus {
+            outline: none;
+            border-color: #3f51b5;
+            box-shadow: 0 0 0 2px rgba(63, 81, 181, .15);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: #fff
+            margin-top: 10px;
         }
 
         th,
         td {
             padding: 8px 10px;
-            border-bottom: 1px solid #eee;
-            text-align: left
+            border-bottom: 1px solid #eeeeee;
+            text-align: left;
         }
 
         th {
-            background: #f3f3f3
+            background: #f3f3f3;
         }
 
         .btn {
-            padding: 8px 12px;
-            border: 1px solid #ccc;
+            padding: 7px 14px;
             border-radius: 6px;
-            background: #fff;
-            cursor: pointer
+            border: 1px solid #3f51b5;
+            background: #3f51b5;
+            color: #ffffff;
+            font-size: .9rem;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+
+        .btn:hover {
+            filter: brightness(.95);
+        }
+
+        .btn-sair {
+            background: #e74c3c;
+            border-color: #e74c3c;
+            color: #ffffff;
+            font-size: .85rem;
+        }
+
+        .btn-sair:hover {
+            filter: brightness(.95);
+        }
+
+        .section-block {
+            margin-top: 24px;
+            padding: 16px 18px;
+        }
+
+        .section-block h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+            color: #123c6b;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
         }
 
         .rodape {
             margin-top: 18px;
-            color: #666;
-            font-size: .9rem
+            color: #666666;
+            font-size: .9rem;
+        }
+
+        @media (max-width: 768px) {
+            .topo {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .topo-direita {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
+
 </h:head>
 <h:body>
     <div class="topo">
-        <h1>📚 Sistema de Biblioteca Digital</h1>
-        <div class="menu">
-            <h:link value="Dashboard" outcome="/index.xhtml" />
-            <h:link value="Autores" outcome="/autores.xhtml" />
-            <h:link value="Livros" outcome="/livros.xhtml" />
+        <div class="topo-esquerda">
+            <h1>📚 Sistema de Biblioteca Digital</h1>
+            <h:panelGroup rendered="#{not empty facesContext.externalContext.userPrincipal}">
+                <div class="usuario-info">
+                    Usuário:
+                    <strong>
+                        <h:outputText value="#{facesContext.externalContext.userPrincipal.name}" />
+                    </strong>
+                </div>
+            </h:panelGroup>
+        </div>
+
+        <div class="topo-direita">
+            <div class="menu">
+                <h:link value="Dashboard" outcome="/index.xhtml" />
+                <h:link value="Autores" outcome="/autores.xhtml" />
+                <h:link value="Livros" outcome="/livros.xhtml" />
+            </div>
+            <h:form rendered="#{not empty facesContext.externalContext.userPrincipal}">
+                <h:commandButton value="Sair" action="#{bibliotecaBean.logout}" styleClass="btn btn-sair" />
+            </h:form>
         </div>
     </div>
+
     <div class="miolo">
         <ui:insert name="content" />
     </div>

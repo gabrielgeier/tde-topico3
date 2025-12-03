@@ -11,6 +11,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
+import jakarta.annotation.security.RolesAllowed;
 
 @ApplicationScoped
 public class BibliotecaService {
@@ -112,5 +113,25 @@ public class BibliotecaService {
             throw new IllegalStateException("autor com livros");
 
         autorRepository.remove(a);
+    }
+
+    @RolesAllowed("ADMIN")
+    @Transactional
+    public void cadastrarLivro(String titulo, String isbn, LocalDate dataPublicacao,
+            Integer numeroPaginas, Long autorId) {
+        Autor autor = autorRepository.findById(autorId);
+        if (autor == null) {
+            throw new IllegalStateException("autor inexistente");
+        }
+
+        Livro livro = new Livro();
+        livro.setTitulo(titulo);
+        livro.setIsbn(isbn);
+        livro.setDataPublicacao(dataPublicacao);
+        livro.setNumeroPaginas(numeroPaginas);
+        livro.setDisponivel(true);
+        livro.setAutor(autor);
+
+        livroRepository.persist(livro);
     }
 }
